@@ -1,72 +1,106 @@
 import { stringify } from 'querystring';
 import React from 'react';
 import './App.css';
+import { useState } from "react";
 
 function App() {
-  const n = 5;
-  const commands = "RFLFFLRF";
-  const inputX = 0;
-  const inputY = 0;
-  const inputD = "E";
+  // defining the initial state for the form
+  const initialState = {
+    n: 0,
+    x: 0,
+    y: 0,
+    d: "",
+    commands: "",
+  };
+  const [values, setValues] = useState(initialState);
 
-  // backend
-  const directions = ["N","E","S","W"]
-  
-  let robot = new Robot(inputX,inputY, directions.indexOf(inputD));
+  const [result, setResult] = useState<Robot>()
 
-for (var i = 0; i < commands.length; i++) {
-  const command = commands.charAt(i);
-  if (command === "R") {
-    robot.d = (robot.d + 1) % 4;
-    
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({
+      ...values, [event.target.name]:
+        event.target.value
+    });
+  };
+
+  const onChangeInt = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({
+      ...values, [event.target.name]:
+        parseInt(event.target.value)
+    });
+  };
+
+
+  // a submit function that will execute upon form submission
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    console.log(values)
+    // send "values" to backend
+    fetch('http://localhost:5000/handle', {
+      method: 'POST',
+      body: JSON.stringify({ ...values }),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(res => res.json())
+      .then(json => setResult(new Robot(json.x, json.y, json.d)))
   }
-  if (command === "L") {
-    robot.d = (robot.d + 3) % 4;
-    
-  }
-  if (command === "F") {
-    if (directions[robot.d] === "N") {
-      if (robot.y - 1 >= 0) {
-        robot.y--
-      }
-    }
 
-     if (directions[robot.d] === "W") {
-      if (robot.x - 1 >= 0) {
-        robot.x--
-      }
-     }
-    
-      if (directions[robot.d] === "E") {
-      if (robot.x + 1 < n) {
-        robot.x++
-      }
-    }
-    
-     if (directions[robot.d] === "S") {
-      if (robot.y + 1 < n) {
-        robot.y++
-      }
-    }
-
-   }
- 
-}
-  
   return (
-    <div className="App">
-      <h3>Robot is in direction</h3>
-      {robot.x},{robot.y},{directions[robot.d]}
-    </div>
+    <>
+      <form onSubmit={onSubmit}>
+        <div>
+          <input
+            name='n'
+            placeholder='n'
+            onChange={onChangeInt}
+            type="number"
+            required
+          />
+          <input
+            name='x'
+            placeholder='x-axis'
+            onChange={onChangeInt}
+            type="number"
+            required
+          />
+
+          <input
+            name='y'
+            placeholder='y-axis'
+            onChange={onChangeInt}
+            type="number"
+            required
+          />
+          <input
+            name='d'
+            placeholder='direction'
+            onChange={onChange}
+            required
+          />
+          <input
+            name='commands'
+            placeholder='commands'
+            onChange={onChange}
+            required
+          />
+          <button type='submit'>Enter</button>
+        </div>
+      </form>
+      {result && <div>
+        <p>{`(${result.x}, ${result.y}, ${result.d})`}</p>
+      </div>}
+    </>
   );
+
+
 }
 
 class Robot {
   x: number; //x-axis
   y: number; //y-axis
-  d: number; //direection
+  d: string; //direection
 
-  constructor(x:number, y:number, d:number) {
+  constructor(x: number, y: number, d: string) {
     this.x = x;
     this.y = y;
     this.d = d;
@@ -74,4 +108,5 @@ class Robot {
 
 
 }
+
 export default App;
