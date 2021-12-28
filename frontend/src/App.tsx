@@ -12,11 +12,20 @@ function App() {
     d: "",
     commands: "",
   };
+
   const [values, setValues] = useState(initialState);
 
   const [result, setResult] = useState<Robot>()
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({
+      ...values, [event.target.name]:
+        event.target.value
+    });
+  };
+
+
+  const onChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setValues({
       ...values, [event.target.name]:
         event.target.value
@@ -53,6 +62,7 @@ function App() {
           <div className="form">
             <div className='left'>
               <h4>Enter Inputs for Robot</h4>
+              <label className="Area">Area:</label>
               <input className='input_box'
                 name='n'
                 placeholder='size'
@@ -60,6 +70,7 @@ function App() {
                 type="number"
                 required
               />
+              <label className="X">X-axis:</label>
               <input
                 name='x'
                 placeholder='x-axis'
@@ -68,6 +79,7 @@ function App() {
                 required
                 className='input_box'
               />
+              <label className="Y">Y-axis:</label>
               <input
                 name='y'
                 placeholder='y-axis'
@@ -76,13 +88,17 @@ function App() {
                 required
                 className='input_box'
               />
-              <input
-                name='d'
-                placeholder='direction'
-                onChange={onChange}
-                required
-                className='input_box'
-              />
+              <label>
+                Direction:
+                <select name='d'className='input_box' onChange={onChangeHandler}>
+                  <option value="N">North</option>
+                  <option value="E">East</option>
+                  <option value="S">South</option>
+                  <option value="W">West</option>
+                </select>
+              </label>
+
+              <label className="Commands">Commands:</label>
               <input
                 name='commands'
                 placeholder='commands'
