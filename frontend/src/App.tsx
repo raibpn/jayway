@@ -1,7 +1,7 @@
 import { stringify } from 'querystring';
-import React from 'react';
-import './App.css';
-import { useState } from "react";
+import React, { useState } from 'react';
+import './styles/App.css';
+// import { Robot } from "../../robot";
 
 function App() {
   // defining the initial state for the form
@@ -47,58 +47,70 @@ function App() {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
-        <div>
-          <input
-            name='n'
-            placeholder='n'
-            onChange={onChangeInt}
-            type="number"
-            required
-          />
-          <input
-            name='x'
-            placeholder='x-axis'
-            onChange={onChangeInt}
-            type="number"
-            required
-          />
+      <div className='App'>
+        <span className="heading"><h1>Mr. Robot</h1></span>
+        <form onSubmit={onSubmit}>
+          <div className="form">
+            <div className='left'>
+              <h4>Enter Inputs for Robot</h4>
+              <input className='input_box'
+                name='n'
+                placeholder='size'
+                onChange={onChangeInt}
+                type="number"
+                required
+              />
+              <input
+                name='x'
+                placeholder='x-axis'
+                onChange={onChangeInt}
+                type="number"
+                required
+                className='input_box'
+              />
+              <input
+                name='y'
+                placeholder='y-axis'
+                onChange={onChangeInt}
+                type="number"
+                required
+                className='input_box'
+              />
+              <input
+                name='d'
+                placeholder='direction'
+                onChange={onChange}
+                required
+                className='input_box'
+              />
+              <input
+                name='commands'
+                placeholder='commands'
+                onChange={onChange}
+                required
+                className='input_box'
+              />
+            </div>
+            <div className='row'>
+              {result && <div className='result'><h4>Final Position of Robot</h4>
+                <p>{`Robot is in (${result.x}, ${result.y}, ${result.d}) position`}</p>
+              </div>}
+            </div>
+            <button className='btn' type='submit'>Enter</button>
+          </div>
+        </form>
 
-          <input
-            name='y'
-            placeholder='y-axis'
-            onChange={onChangeInt}
-            type="number"
-            required
-          />
-          <input
-            name='d'
-            placeholder='direction'
-            onChange={onChange}
-            required
-          />
-          <input
-            name='commands'
-            placeholder='commands'
-            onChange={onChange}
-            required
-          />
-          <button type='submit'>Enter</button>
-        </div>
-      </form>
-      {result && <div>
-        <p>{`(${result.x}, ${result.y}, ${result.d})`}</p>
-      </div>}
+      </div>
+
     </>
   );
-
 
 }
 
 class Robot {
   x: number; //x-axis
   y: number; //y-axis
-  d: string; //direection
+  d: string; //direction
 
   constructor(x: number, y: number, d: string) {
     this.x = x;
@@ -108,5 +120,6 @@ class Robot {
 
 
 }
+
 
 export default App;

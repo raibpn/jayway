@@ -38,7 +38,7 @@ router.post('/handle', (request, response) => {
     // backend
     const directions = ["N", "E", "S", "W"]
 
-    let robot = new Robot(inputX, inputY, directions.indexOf(inputD));
+    let robot = new Robot( inputX, inputY, directions.indexOf(inputD));
 
     for (var i = 0; i < commands.length; i++) {
         const command = commands.charAt(i);
@@ -92,13 +92,11 @@ server.use("/", router);
 
 
 class Robot {
-    n: number;
     x: number; //x-axis
     y: number; //y-axis
-    d: number; //direection
+    d: number; //direction
 
-    constructor(n:number, x: number, y: number, d: number) {
-        this.n = n;
+    constructor( x: number, y: number, d: number) {
         this.x = x;
         this.y = y;
         this.d = d;
