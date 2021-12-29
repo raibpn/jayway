@@ -70,6 +70,7 @@ function App() {
                 type="number"
                 required
               />
+
               <label className="X">X-axis:</label>
               <input
                 name='x'
@@ -79,6 +80,7 @@ function App() {
                 required
                 className='input_box'
               />
+
               <label className="Y">Y-axis:</label>
               <input
                 name='y'
@@ -88,10 +90,12 @@ function App() {
                 required
                 className='input_box'
               />
+
               <label>
                 Direction:
-                <select name='d'className='input_box' onChange={onChangeHandler}>
-                  <option value="N">North</option>
+                <select name='d' className='input_box' onChange={onChangeHandler}>
+                  <option value=""></option>
+                  <option value="N" >North</option>
                   <option value="E">East</option>
                   <option value="S">South</option>
                   <option value="W">West</option>
@@ -106,21 +110,20 @@ function App() {
                 required
                 className='input_box'
               />
+
             </div>
-            <div className='row'>
-              {result && <div className='result'><h4>Final Position of Robot</h4>
-                <p>{`Robot is in (${result.x}, ${result.y}, ${result.d}) position`}</p>
-              </div>}
-            </div>
-            <button className='btn' type='submit'>Enter</button>
+            {result && <div className='result'><h4>Final Position of Robot</h4>
+              <p>{`Robot is in (${result.x}, ${result.y}, ${result.d}) position`}</p>
+            </div>}
+            <span className='butn'>
+              <button className='btn' type='submit'>Enter</button>
+            </span>
           </div>
         </form>
-
       </div>
 
     </>
   );
-
 }
 
 class Robot {
@@ -136,6 +139,5 @@ class Robot {
 
 
 }
-
 
 export default App;
