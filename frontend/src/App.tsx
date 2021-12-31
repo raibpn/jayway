@@ -115,9 +115,7 @@ function App() {
             {result && <div className='result'><h4>Final Position of Robot</h4>
               <p>{`Robot is in (${result.x}, ${result.y}, ${result.d}) position`}</p>
             </div>}
-            <span className='butn'>
               <button className='btn' type='submit'>Enter</button>
-            </span>
           </div>
         </form>
       </div>
