@@ -1,15 +1,14 @@
 import { stringify } from 'querystring';
 import React, { useState } from 'react';
 import './styles/App.css';
-// import { Robot } from "../../robot";
 
 function App() {
   // defining the initial state for the form
   const initialState = {
-    n: 0,
-    x: 0,
-    y: 0,
-    d: "",
+    n: 0, //area
+    x: 0, //x-axis
+    y: 0, //y-axis
+    d: "", //direction 
     commands: "",
   };
 
@@ -56,69 +55,67 @@ function App() {
 
   return (
     <>
-      <div className='App'>
-        <span className="heading"><h1>Mr. Robot</h1></span>
-        <form onSubmit={onSubmit}>
-          <div className="form">
-            <div className='left'>
-              <h4>Enter Inputs for Robot</h4>
-              <label className="Area">Area:</label>
-              <input className='input_box'
-                name='n'
-                placeholder='size'
-                onChange={onChangeInt}
-                type="number"
-                required
-              />
+      <div className='heading'><h1>Mr. Robot</h1></div>
+      <form onSubmit={onSubmit}>
+        <div className="form">
+          <div className='left'>
+            <h4>Enter Inputs for Robot</h4>
+            <label className="Area">Area:</label>
+            <input className='input_box'
+              name='n'
+              placeholder='size'
+              onChange={onChangeInt}
+              type="number"
+              required
+            />
 
-              <label className="X">X-axis:</label>
-              <input
-                name='x'
-                placeholder='x-axis'
-                onChange={onChangeInt}
-                type="number"
-                required
-                className='input_box'
-              />
+            <label className="X">X-axis:</label>
+            <input
+              name='x'
+              placeholder='x-axis'
+              onChange={onChangeInt}
+              type="number"
+              required
+              className='input_box'
+            />
 
-              <label className="Y">Y-axis:</label>
-              <input
-                name='y'
-                placeholder='y-axis'
-                onChange={onChangeInt}
-                type="number"
-                required
-                className='input_box'
-              />
+            <label className="Y">Y-axis:</label>
+            <input
+              name='y'
+              placeholder='y-axis'
+              onChange={onChangeInt}
+              type="number"
+              required
+              className='input_box'
+            />
 
-              <label>
-                Direction:
-                <select name='d' className='input_box' onChange={onChangeHandler}>
-                  <option value=""></option>
-                  <option value="N" >North</option>
-                  <option value="E">East</option>
-                  <option value="S">South</option>
-                  <option value="W">West</option>
-                </select>
-              </label>
+            <label>
+              Direction:
+              <select name='d' className='input_box' onChange={onChangeHandler}>
+                <option value=""></option>
+                <option value="N" >North</option>
+                <option value="E">East</option>
+                <option value="S">South</option>
+                <option value="W">West</option>
+              </select>
+            </label>
 
-              <label className="Commands">Commands:</label>
-              <input
-                name='commands'
-                placeholder='commands'
-                onChange={onChange}
-                required
-                className='input_box'
-              />
+            <label className="Commands">Commands:</label>
+            <input
+              name='commands'
+              placeholder='commands'
+              onChange={onChange}
+              required
+              className='input_box'
+            />
 
-            </div>
-            {result && <div className='result'><h4>Final Position of Robot</h4>
-              <p>{`Robot is in (${result.x}, ${result.y}, ${result.d}) position`}</p>
-            </div>}
-              <button className='btn' type='submit'>Enter</button>
           </div>
-        </form>
-      </div>
+          {result && <div className='result'><h4>Final Position of Robot</h4>
+            <p>{`Robot is in (${result.x}, ${result.y}, ${result.d}) position`}</p>
+          </div>}
+          <button className='btn' type='submit'>Enter</button>
+        </div>
+      </form>
 
     </>
   );
