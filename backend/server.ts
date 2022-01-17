@@ -35,6 +35,7 @@ router.post('/handle', (request, response) => {
     const inputD = request.body.d;
     console.log(n, commands, inputX, inputY, inputD)
 
+
     // backend
     const directions = ["N", "E", "S", "W"]
 
@@ -52,8 +53,8 @@ router.post('/handle', (request, response) => {
         }
         if (command === "F") {
             if (directions[robot.d] === "N") {
-                if (robot.y - 1 >= 0) {
-                    robot.y--
+                if (robot.y + 1 < n) {
+                    robot.y++
                 }
             }
 
@@ -70,8 +71,8 @@ router.post('/handle', (request, response) => {
             }
 
             if (directions[robot.d] === "S") {
-                if (robot.y + 1 < n) {
-                    robot.y++
+                if (robot.y - 1 >= 0) {
+                    robot.y--
                 }
             }
 
@@ -79,7 +80,6 @@ router.post('/handle', (request, response) => {
 
     }
 
-    console.log(robot.x, robot.y, robot.d)
     response.json({
         x: robot.x,
         y: robot.y,
